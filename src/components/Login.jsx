@@ -18,7 +18,7 @@ const Login = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                            <div className="row">
+                            <div className="row g-3">
                                 <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                     <form action="" className="label-form">Email</form>
                                     <input type="text" className="form-control" name='Email' value={data.Email} onChange={inputHandler} />
@@ -29,10 +29,11 @@ const Login = () => {
                                 </div>
                                 <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"><br />
                                     <button className="btn btn-success" onClick={readValue}>Login</button>
+                                    <br />
                                 </div>
-                                <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-21 col-xxl-12">
-                    <a href="/Photosign" className="btn btn-secondary">register</a>
-                    </div>
+                                <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                            <a href="/" className="btn btn-secondary">home</a>
+                        </div>
                             </div>
                         </div>
                     </div>

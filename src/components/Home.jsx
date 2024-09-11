@@ -1,8 +1,12 @@
 import React from 'react';
+import Nav1 from './Nav1';
 
 const Home = () => {
   return (
+    <div>
+      <Nav1/>
     <div style={{
+      
       height: '100vh',
       margin: 0,
       padding: 0,
@@ -46,6 +50,7 @@ const Home = () => {
       }}>
         <p>&copy; 2023 WedCode. All rights reserved.</p>
       </footer>
+    </div>
     </div>
   );
 };
