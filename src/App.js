@@ -17,9 +17,6 @@ function App() {
     <Route path="/Photop" element={<Photop/>}/>
     <Route path="/Createp" element={<Createp/>}/>
     
-  
-  
-  
     </Routes>
      
      </BrowserRouter>
