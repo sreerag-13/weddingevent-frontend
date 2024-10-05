@@ -1,9 +1,10 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 
 const Photosign = () => {
     const[data,setData]=useState({
         "PName":"",
-        "Email":"",
+        "Email":"", 
         "Password":"",
         "Phone":"",
         "Paddress":"",
@@ -18,7 +19,25 @@ const Photosign = () => {
         setData({...data,[event.target.name]:event.target.value})
     }
     const readValue=()=>{
-        console.log(data)
+        let newInput={ "PName":data.PName,"Email":data.Email,"Password":data.Password,
+        "Phone":data.Phone,
+        "Paddress":data.Paddress,
+        "state":data.state,
+        "City":data.City,
+        "experience":data.experience,
+        "Description":data.Description,
+        "Pimage":data.Pimage}
+        axios.post("http://localhost:8082/photosignup",newInput).then((response) => {
+            console.log(response.data)
+            if (response.data.status=="success done") {
+                alert("success")
+
+            } else {
+                alert("email already exist")
+
+            }
+        }
+        )
     }
     return (
 

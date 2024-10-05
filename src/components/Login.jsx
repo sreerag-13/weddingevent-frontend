@@ -1,46 +1,75 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 const Login = () => {
-    const[data,setData]=useState({
-        "Email":"",
-        "Password":""
+  const [data, setData] = useState({
+    Email: '',
+    Password: '',
+  });
+  const navigate = useNavigate();
 
-    })
- const inputHandler = (event) => {
-        setData({ ...data, [event.target.name]: event.target.value })
-    }
-    const readValue = () => {
-        console.log(data)
-    }
-   
-        return (
-            <div>
-                <center><h2><b>LOGIN</b></h2></center><br />
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                            <div className="row g-3">
-                                <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                    <form action="" className="label-form">Email</form>
-                                    <input type="text" className="form-control" name='Email' value={data.Email} onChange={inputHandler} />
-                                </div>
-                                <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                    <form action="" className="label-form">Password</form>
-                                    <input type="password" className="form-control" name='Password' value={data.Password} onChange={inputHandler} />
-                                </div>
-                                <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"><br />
-                                    <button className="btn btn-success" onClick={readValue}>Login</button>
-                                    <br />
-                                </div>
-                                <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                            <a href="/" className="btn btn-secondary">home</a>
-                        </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        )
-    }
+  const inputHandler = (event) => {
+    setData({ ...data, [event.target.name]: event.target.value });
+  };
 
-    export default Login
+  const readValue = () => {
+    axios
+      .post('http://localhost:8082/photosignin', data)
+      .then((response) => {
+        if (response.data.status === 'success') {
+          const { token, Pimage, PName, Phone } = response.data;  // Add Phone here
+          sessionStorage.setItem('token', token);
+          sessionStorage.setItem('Pimage', Pimage); // Store Pimage
+          sessionStorage.setItem('PName', PName);   // Store PName
+          sessionStorage.setItem('Phone', Phone);   // Store Phone
+          navigate('/Photop');
+        } else if (response.data.status === 'incorrect password') {
+          alert('Incorrect password');
+        } else if (response.data.status === 'incorrect email') {
+          alert('Incorrect email');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('An error occurred. Please try again.');
+      });
+  };
+
+  return (
+    <div>
+      <center>
+        <h2>Login</h2>
+      </center>
+      <div className="container">
+        <form>
+          <label>Email</label>
+          <input
+            type="text"
+            name="Email"
+            value={data.Email}
+            onChange={inputHandler}
+            className="form-control"
+          />
+          <label>Password</label>
+          <input
+            type="password"
+            name="Password"
+            value={data.Password}
+            onChange={inputHandler}
+            className="form-control"
+          />
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={readValue}
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

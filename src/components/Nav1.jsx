@@ -22,12 +22,13 @@ const Nav1 = () => {
         </li>  */}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            registeration
+            Registration
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/Photosign">Photographer</a></li>
             <li><a class="dropdown-item" href="#">Auditorium</a></li>
             <li><a class="dropdown-item" href="#">User</a></li>
+            <li><a class="dropdown-item" href="/Photop">Profile</a></li>
           </ul>
         </li>
       </ul>
