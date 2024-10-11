@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import NavP from './NavP';
 
 const Photop = () => {
   const [data, setData] = useState({
@@ -9,6 +10,7 @@ const Photop = () => {
 
   return (
     <div>
+      <NavP/>
       <div
         className="photographer-profile"
         style={{
@@ -47,15 +49,7 @@ const Photop = () => {
           >
             {data.PName} {/* Display name */}
           </h2>
-          <h2
-            style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              marginBottom: '10px',
-            }}
-          >
-            {data.Phone} {/* Display name */}
-          </h2>
+    
         </div>
       </div>
     </div>

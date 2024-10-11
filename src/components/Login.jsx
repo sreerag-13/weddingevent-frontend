@@ -18,11 +18,12 @@ const Login = () => {
       .post('http://localhost:8082/photosignin', data)
       .then((response) => {
         if (response.data.status === 'success') {
-          const { token, Pimage, PName, Phone } = response.data;  // Add Phone here
+          const { token, Pimage, PName, Phone, userId } = response.data;  
           sessionStorage.setItem('token', token);
-          sessionStorage.setItem('Pimage', Pimage); // Store Pimage
-          sessionStorage.setItem('PName', PName);   // Store PName
-          sessionStorage.setItem('Phone', Phone);   // Store Phone
+          sessionStorage.setItem('Pimage', Pimage); 
+          sessionStorage.setItem('PName', PName);   
+          sessionStorage.setItem('Phone', Phone);   
+          sessionStorage.setItem('userId', userId); 
           navigate('/Photop');
         } else if (response.data.status === 'incorrect password') {
           alert('Incorrect password');
