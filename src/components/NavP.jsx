@@ -12,8 +12,9 @@ const NavP = () => {
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="#">MyPost</a>
+        <a class="nav-link" href="/Viewpostp">MyPost</a>
         <a class="nav-link" href="/Createp">Create</a>
+        <a class="nav-link" href="/Ppricing">add pricing</a>
         <a class="nav-link disabled" aria-disabled="true">Disabled</a>
       </div>
       <button class="btn btn-outline-danger ms-auto" type="button">Logout</button>

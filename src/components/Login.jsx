@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
+  const [loginType, setLoginType] = useState('user'); // State to toggle login type
   const [data, setData] = useState({
     Email: '',
     Password: '',
@@ -14,21 +15,33 @@ const Login = () => {
   };
 
   const readValue = () => {
+    const endpoint =
+      loginType === 'user'
+        ? 'http://localhost:8082/usersignin'
+        : 'http://localhost:8082/photosignin';
+
     axios
-      .post('http://localhost:8082/photosignin', data)
+      .post(endpoint, data)
       .then((response) => {
         if (response.data.status === 'success') {
-          const { token, Pimage, PName, Phone, userId } = response.data;  
+          const { token, userId, UName, Pimage, PName, Phone } = response.data;
+
+          // Store common user details
           sessionStorage.setItem('token', token);
-          sessionStorage.setItem('Pimage', Pimage); 
-          sessionStorage.setItem('PName', PName);   
-          sessionStorage.setItem('Phone', Phone);   
-          sessionStorage.setItem('userId', userId); 
-          navigate('/Photop');
-        } else if (response.data.status === 'incorrect password') {
-          alert('Incorrect password');
-        } else if (response.data.status === 'incorrect email') {
-          alert('Incorrect email');
+          sessionStorage.setItem('userId', userId);
+
+          // Store additional details based on login type
+          if (loginType === 'user') {
+            sessionStorage.setItem('UName', UName);
+            navigate('/Userp'); // Navigate to UserP page
+          } else {
+            sessionStorage.setItem('Pimage', Pimage);
+            sessionStorage.setItem('PName', PName);
+            sessionStorage.setItem('Phone', Phone);
+            navigate('/Photop'); // Navigate to Photographer page
+          }
+        } else if (response.data.status === 'error') {
+          alert(response.data.message); // Display error message
         }
       })
       .catch((error) => {
@@ -41,6 +54,21 @@ const Login = () => {
     <div>
       <center>
         <h2>Login</h2>
+        <div>
+          {/* Toggle between User and Photographer Sign-in */}
+          <button
+            className={`btn ${loginType === 'user' ? 'btn-primary' : 'btn-light'}`}
+            onClick={() => setLoginType('user')}
+          >
+            User Login
+          </button>
+          <button
+            className={`btn ${loginType === 'photographer' ? 'btn-primary' : 'btn-light'}`}
+            onClick={() => setLoginType('photographer')}
+          >
+            Photographer Login
+          </button>
+        </div>
       </center>
       <div className="container">
         <form>
@@ -60,11 +88,7 @@ const Login = () => {
             onChange={inputHandler}
             className="form-control"
           />
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={readValue}
-          >
+          <button type="button" className="btn btn-success" onClick={readValue}>
             Login
           </button>
         </form>
