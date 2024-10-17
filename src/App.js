@@ -27,7 +27,8 @@ function App() {
     <Route path="/Usersignup" element={<Usersignup/>}/>
     <Route path="/Userp" element={<Userp/>}/>
     <Route path="/Cardsp" element={<Cardsp/>}/>
-    <Route path="/user-posts/:userId" element={<Bookp/>} />
+    <Route path="/user-posts" element={<Bookp/>} />
+
     </Routes>
      
      </BrowserRouter>
