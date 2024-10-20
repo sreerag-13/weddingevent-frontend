@@ -25,7 +25,7 @@ const Nav2 = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/Cardsp">Photogarphers</a>
+                <a className="nav-link" href="/Statusu">booking</a>
               </li>
               <li className="nav-item dropdown">
                 <a
@@ -38,8 +38,8 @@ const Nav2 = () => {
                   Dropdown
                 </a>
                 <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="#">Action</a></li>
-                  <li><a className="dropdown-item" href="#">Another action</a></li>
+                  <li><a className="dropdown-item" href="/Cardsp">photographer</a></li>
+                  <li><a className="dropdown-item" href="#">Auditorium</a></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li><a className="dropdown-item" href="#">Something else here</a></li>
                 </ul>

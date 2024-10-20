@@ -3,48 +3,75 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
-    const [loginType, setLoginType] = useState('user');
+    const [loginType, setLoginType] = useState('user'); // Default login type: user
     const [data, setData] = useState({
         Email: '',
         Password: '',
     });
     const navigate = useNavigate();
 
+    // Handle input changes
     const inputHandler = (event) => {
         setData({ ...data, [event.target.name]: event.target.value });
     };
 
+    // Login handler based on the selected login type
     const readValue = () => {
-        const endpoint = loginType === 'user'
-            ? 'http://localhost:8082/usersignin'
-            : 'http://localhost:8082/photosignin';
+        let endpoint;
 
+        // Select the appropriate API endpoint
+        switch (loginType) {
+            case 'user':
+                endpoint = 'http://localhost:8082/usersignin';
+                break;
+            case 'photographer':
+                endpoint = 'http://localhost:8082/photosignin';
+                break;
+            case 'admin':
+                endpoint = 'http://localhost:8082/admin/signin';
+                break;
+            case 'auditorium': // Add auditorium case
+                endpoint = 'http://localhost:8082/auditorium/signin';
+                break;
+            default:
+                return;
+        }
+
+        // Send login request
         axios.post(endpoint, data)
             .then((response) => {
                 if (response.data.status === 'success') {
-                    const { token, userId, UName, Email, Phone, Pimage, PName } = response.data;
+                    const { token, auditoriumId, aName, aimage, userId, adminId, Email, UName, Phone, Pimage, PName } = response.data;
 
-                    // Store common user details
+                    // Store session data based on login type
                     sessionStorage.setItem('token', token);
-                    sessionStorage.setItem('userId', userId);
-                    sessionStorage.setItem('UName', UName);
-                    sessionStorage.setItem('Email', Email); // Ensure Email is stored
-                    sessionStorage.setItem('Phone', Phone); // Ensure Phone is stored
+                    sessionStorage.setItem('Email', Email); // Store Email for all users
 
-                    // Navigate based on login type
                     if (loginType === 'user') {
-                        navigate('/Userp');
-                    } else {
+                        sessionStorage.setItem('userId', userId);
+                        sessionStorage.setItem('UName', UName);
+                        sessionStorage.setItem('Phone', Phone);
+                        navigate('/Userp'); // Redirect to User page
+                    } else if (loginType === 'photographer') {
+                        sessionStorage.setItem('userId', userId);
                         sessionStorage.setItem('Pimage', Pimage);
                         sessionStorage.setItem('PName', PName);
-                        navigate('/Photop');
+                        navigate('/Photop'); // Redirect to Photographer page
+                    } else if (loginType === 'admin') {
+                        sessionStorage.setItem('adminId', adminId);
+                        navigate('/Adminp'); // Redirect to Admin Dashboard
+                    } else if (loginType === 'auditorium') { // Handle auditorium login
+                        sessionStorage.setItem('userId', auditoriumId);
+                        sessionStorage.setItem('aName', aName);
+                        sessionStorage.setItem('aimage', aimage);
+                        navigate('/Auditp'); // Redirect to Auditorium page
                     }
                 } else {
-                    alert(response.data.message);
+                    alert(response.data.message); // Show error message
                 }
             })
             .catch((error) => {
-                console.error(error);
+                console.error('Login error:', error);
                 alert('An error occurred. Please try again.');
             });
     };
@@ -54,6 +81,7 @@ const Login = () => {
             <center>
                 <h2>Login</h2>
                 <div>
+                    {/* Toggle buttons for login type */}
                     <button
                         className={`btn ${loginType === 'user' ? 'btn-primary' : 'btn-light'}`}
                         onClick={() => setLoginType('user')}
@@ -66,8 +94,21 @@ const Login = () => {
                     >
                         Photographer Login
                     </button>
+                    <button
+                        className={`btn ${loginType === 'admin' ? 'btn-primary' : 'btn-light'}`}
+                        onClick={() => setLoginType('admin')}
+                    >
+                        Admin Login
+                    </button>
+                    <button
+                        className={`btn ${loginType === 'auditorium' ? 'btn-primary' : 'btn-light'}`}
+                        onClick={() => setLoginType('auditorium')} // Add this button for auditorium login
+                    >
+                        Auditorium Login
+                    </button>
                 </div>
             </center>
+
             <div className="container">
                 <form>
                     <label>Email</label>

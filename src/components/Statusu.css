@@ -1,0 +1,30 @@
+.statusu-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .statusu-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .statusu-table th, .statusu-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .statusu-table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .statusu-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .statusu-table tr:hover {
+    background-color: #ddd;
+  }
+  
