@@ -15,7 +15,7 @@ const NavP = () => {
         <a class="nav-link" href="/Viewpostp">MyPost</a>
         <a class="nav-link" href="/Createp">Create</a>
         <a class="nav-link" href="/Ppricing">add pricing</a>
-        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        <a class="nav-link" href="/Statusp">booking</a>
       </div>
       <button class="btn btn-outline-danger ms-auto" type="button">Logout</button>
     </div>

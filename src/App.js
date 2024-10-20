@@ -12,6 +12,13 @@ import Usersignup from './components/Usersignup';
 import Userp from './components/Userp';
 import Cardsp from './components/Cardsp';
 import Bookp from './components/Bookp';
+import Adminp from './components/Adminp';
+import Audisignup from './components/Audisignup';
+import Auditp from './components/Auditp';
+import Createa from './components/Createa';
+import Aviewp from './components/Aviewp';
+import Statusp from './components/Statusp';
+import Statusu from './components/Statusu';
 
 function App() {
   return (
@@ -28,7 +35,13 @@ function App() {
     <Route path="/Userp" element={<Userp/>}/>
     <Route path="/Cardsp" element={<Cardsp/>}/>
     <Route path="/user-posts" element={<Bookp/>} />
-
+    <Route path="/Adminp" element={<Adminp/>} />
+    <Route path="/Audisignup" element={<Audisignup/>} />
+    <Route path="/Auditp" element={<Auditp/>} />
+    <Route path="/Createa" element={<Createa/>} />
+    <Route path="/Aviewp" element={<Aviewp/>} />
+    <Route path="/Statusp" element={<Statusp/>} />
+    <Route path="/Statusu" element={<Statusu/>} />
     </Routes>
      
      </BrowserRouter>
