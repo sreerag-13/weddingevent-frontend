@@ -39,7 +39,7 @@ const Nav2 = () => {
                 </a>
                 <ul className="dropdown-menu">
                   <li><a className="dropdown-item" href="/Cardsp">photographer</a></li>
-                  <li><a className="dropdown-item" href="#">Auditorium</a></li>
+                  <li><a className="dropdown-item" href="Carda">Auditorium</a></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li><a className="dropdown-item" href="#">Something else here</a></li>
                 </ul>
