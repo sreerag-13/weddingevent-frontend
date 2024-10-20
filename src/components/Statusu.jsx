@@ -55,8 +55,8 @@ const Statusu = () => {
         <thead>
           <tr>
             <th>Booking ID</th>
-            <th>Photographer Name</th>
-            <th>Photographer Email</th>
+            <th>Entity Name</th> {/* Updated for combined name */}
+            <th>Entity Email</th> {/* Updated for combined email */}
             <th>Total Cost</th>
             <th>Booking Dates</th>
             <th>Status</th>
@@ -67,8 +67,8 @@ const Statusu = () => {
             bookings.map((booking) => (
               <tr key={booking._id}>
                 <td>{booking._id}</td>
-                <td>{booking.photographerName || 'N/A'}</td>
-                <td>{booking.photographerEmail || 'N/A'}</td>
+                <td>{booking.entityName || 'N/A'}</td> {/* Display entity name */}
+                <td>{booking.entityEmail || 'N/A'}</td> {/* Display entity email */}
                 <td>₹{booking.totalCost}</td>
                 <td>
                   {booking.bookingDates.map((date, index) => (

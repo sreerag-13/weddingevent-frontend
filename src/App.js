@@ -19,6 +19,10 @@ import Createa from './components/Createa';
 import Aviewp from './components/Aviewp';
 import Statusp from './components/Statusp';
 import Statusu from './components/Statusu';
+import Apricing from './components/Apricing';
+import Carda from './components/Carda';
+import Booka from './components/Booka';
+import Statusa from './components/Statusa';
 
 function App() {
   return (
@@ -34,6 +38,7 @@ function App() {
     <Route path="/Usersignup" element={<Usersignup/>}/>
     <Route path="/Userp" element={<Userp/>}/>
     <Route path="/Cardsp" element={<Cardsp/>}/>
+    <Route path="/Carda" element={<Carda/>}/>
     <Route path="/user-posts" element={<Bookp/>} />
     <Route path="/Adminp" element={<Adminp/>} />
     <Route path="/Audisignup" element={<Audisignup/>} />
@@ -42,6 +47,10 @@ function App() {
     <Route path="/Aviewp" element={<Aviewp/>} />
     <Route path="/Statusp" element={<Statusp/>} />
     <Route path="/Statusu" element={<Statusu/>} />
+    <Route path="/Apricing" element={<Apricing/>} />
+    <Route path="/auditorium-posts" element={<Booka/>} />
+   
+    <Route path="/Statusa" element={<Statusa/>} />
     </Routes>
      
      </BrowserRouter>

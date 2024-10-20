@@ -14,7 +14,8 @@ const Nav3 = () => {
     <a class="nav-link active" aria-current="page" href="#">Home</a>
     <a class="nav-link" href="/Aviewp">MyPost</a>
     <a class="nav-link" href="/Createa">Create post</a>
-    <a class="nav-link" href="/Ppricing">add pricing</a>
+    <a class="nav-link" href="/Apricing">add pricing</a>
+    <a class="nav-link" href="/Statusa">Booking</a>
     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
   </div>
   <button class="btn btn-outline-danger ms-auto" type="button">Logout</button>
