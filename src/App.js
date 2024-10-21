@@ -23,6 +23,7 @@ import Apricing from './components/Apricing';
 import Carda from './components/Carda';
 import Booka from './components/Booka';
 import Statusa from './components/Statusa';
+import Billingu from './components/Billingu';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
     <Route path="/auditorium-posts" element={<Booka/>} />
    
     <Route path="/Statusa" element={<Statusa/>} />
+    <Route path="/Billingu" element={<Billingu/>} />
     </Routes>
      
      </BrowserRouter>

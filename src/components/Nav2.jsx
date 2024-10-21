@@ -27,6 +27,9 @@ const Nav2 = () => {
               <li className="nav-item">
                 <a className="nav-link" href="/Statusu">booking</a>
               </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/Billingu">Billing</a>
+              </li>
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -48,17 +51,7 @@ const Nav2 = () => {
                 <a className="nav-link disabled" aria-disabled="true">Disabled</a>
               </li>
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
+        
           </div>
         </div>
       </nav>

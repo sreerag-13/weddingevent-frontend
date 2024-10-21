@@ -27,7 +27,8 @@ const Ppricing = () => {
       const response = await axios.get('http://localhost:8082/get-pricing', {
         headers: { token },
       });
-      setPricingList(response.data);
+      console.log('Pricing data fetched:', response.data); // Log the data to see its structure
+      setPricingList(response.data); // Set the pricing list from the API response
     } catch (error) {
       console.error('Error fetching pricing data:', error);
       setMessage('Error fetching pricing data.');
@@ -197,7 +198,7 @@ const Ppricing = () => {
                 <th>Package Name</th>
                 <th>Price</th>
                 <th>Duration</th>
-                <th>Description</th>
+                <th>Description</th> {/* Ensure this column is present */}
                 <th>Actions</th>
               </tr>
             </thead>
@@ -207,7 +208,7 @@ const Ppricing = () => {
                   <td>{pricing.packageName}</td>
                   <td>{pricing.price}</td>
                   <td>{pricing.duration}</td>
-                  <td>{pricing.description}</td>
+                  <td>{pricing.description ? pricing.description : 'No description available'}</td> {/* Fallback if description is missing */}
                   <td>
                     <button
                       onClick={() => handleEdit(pricing)}
