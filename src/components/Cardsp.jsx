@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Cardsp.css';
 import { useNavigate } from 'react-router-dom';
+import Nav2 from './Nav2'; // Import the Nav2 component
 
 const Cardsp = () => {
     const [photographers, setPhotographers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState(''); // State for search input
+    const [filteredPhotographers, setFilteredPhotographers] = useState([]); // State for filtered photographers
     const navigate = useNavigate();
 
     // Fetch all photographers
@@ -13,6 +16,7 @@ const Cardsp = () => {
             const response = await axios.post('http://localhost:8082/viewallp');
             console.log('Photographers fetched:', response.data);
             setPhotographers(response.data);
+            setFilteredPhotographers(response.data); // Initialize filtered photographers
         } catch (error) {
             console.error('Error fetching photographers:', error.message);
             alert('Unable to load photographers. Please try again later.');
@@ -22,6 +26,20 @@ const Cardsp = () => {
     useEffect(() => {
         fetchPhotographers();
     }, []);
+
+    // Function to handle search
+    const handleSearch = (event) => {
+        const value = event.target.value;
+        setSearchTerm(value);
+
+        // Filter photographers based on search term (city or state)
+        const filtered = photographers.filter(photographer =>
+            photographer.City.toLowerCase().includes(value.toLowerCase()) ||
+            photographer.state.toLowerCase().includes(value.toLowerCase())
+        );
+
+        setFilteredPhotographers(filtered); // Update the state with filtered photographers
+    };
 
     const handleViewPosts = async (photographerId) => {
         const token = sessionStorage.getItem('token'); // Get token from sessionStorage
@@ -50,12 +68,31 @@ const Cardsp = () => {
 
     return (
         <div className="cardsp-container">
+            <Nav2 /> {/* Include the Nav2 navbar */}
+
             <h2>Registered Photographers</h2>
-            {photographers.length === 0 ? (
+            
+            {/* Search input */}
+            <input
+                type="text"
+                placeholder="Search by city or state"
+                value={searchTerm}
+                onChange={handleSearch}
+                style={{
+                    padding: '10px',
+                    marginBottom: '20px',
+                    borderRadius: '5px',
+                    border: '1px solid #ccc',
+                    width: '100%',
+                    maxWidth: '400px',
+                }}
+            />
+
+            {filteredPhotographers.length === 0 ? (
                 <p>No photographers found.</p>
             ) : (
                 <div className="cards-wrapper">
-                    {photographers.map((photographer) => (
+                    {filteredPhotographers.map((photographer) => (
                         <div className="card" key={photographer._id}>
                             <img
                                 src={`http://localhost:8082/images/${photographer.Pimage}`}
