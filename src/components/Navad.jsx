@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-const Nav2 = () => {
+const Navad = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -25,10 +25,10 @@ const Nav2 = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/Statusu">booking</a>
+                <a className="nav-link" href="/Adbook">booking</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/Billingu">Billing</a>
+                <a className="nav-link" href="/">Billing</a>
               </li>
               <li className="nav-item dropdown">
                 <a
@@ -41,9 +41,8 @@ const Nav2 = () => {
                   Dropdown
                 </a>
                 <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="/Cardsp">photographer</a></li>
-                  <li><a className="dropdown-item" href="/Carda">Auditorium</a></li>
-                  <li><a className="dropdown-item" href="/Cardc">Catering</a></li>
+                  <li><a className="dropdown-item" href="/">photographer</a></li>
+                  <li><a className="dropdown-item" href="">Auditorium</a></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li><a className="dropdown-item" href="#">Something else here</a></li>
                 </ul>
@@ -57,7 +56,7 @@ const Nav2 = () => {
         </div>
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default Nav2;
+export default Navad

@@ -30,8 +30,11 @@ const Login = () => {
             case 'admin':
                 endpoint = 'http://localhost:8082/admin/signin';
                 break;
-            case 'auditorium': // Add auditorium case
+            case 'auditorium':
                 endpoint = 'http://localhost:8082/auditorium/signin';
+                break;
+            case 'catering': // Add catering case
+                endpoint = 'http://localhost:8082/catering/signin';
                 break;
             default:
                 return;
@@ -41,7 +44,7 @@ const Login = () => {
         axios.post(endpoint, data)
             .then((response) => {
                 if (response.data.status === 'success') {
-                    const { token, auditoriumId, aName, aimage, userId, adminId, Email, UName, Phone, Pimage, PName } = response.data;
+                    const { token, auditoriumId, aName, aimage, userId, adminId, Email, UName, Phone, Pimage, PName, cateringId, CName, Cimage } = response.data;
 
                     // Store session data based on login type
                     sessionStorage.setItem('token', token);
@@ -60,11 +63,16 @@ const Login = () => {
                     } else if (loginType === 'admin') {
                         sessionStorage.setItem('adminId', adminId);
                         navigate('/Adminp'); // Redirect to Admin Dashboard
-                    } else if (loginType === 'auditorium') { // Handle auditorium login
+                    } else if (loginType === 'auditorium') {
                         sessionStorage.setItem('userId', auditoriumId);
                         sessionStorage.setItem('aName', aName);
                         sessionStorage.setItem('aimage', aimage);
                         navigate('/Auditp'); // Redirect to Auditorium page
+                    } else if (loginType === 'catering') { // Handle catering login
+                        sessionStorage.setItem('userId', cateringId);
+                        sessionStorage.setItem('CName', CName);
+                        sessionStorage.setItem('Cimage', Cimage);
+                        navigate('/Caterp'); // Redirect to Catering page
                     }
                 } else {
                     alert(response.data.message); // Show error message
@@ -102,9 +110,15 @@ const Login = () => {
                     </button>
                     <button
                         className={`btn ${loginType === 'auditorium' ? 'btn-primary' : 'btn-light'}`}
-                        onClick={() => setLoginType('auditorium')} // Add this button for auditorium login
+                        onClick={() => setLoginType('auditorium')}
                     >
                         Auditorium Login
+                    </button>
+                    <button
+                        className={`btn ${loginType === 'catering' ? 'btn-primary' : 'btn-light'}`}
+                        onClick={() => setLoginType('catering')} // Add this button for catering login
+                    >
+                        Catering Login
                     </button>
                 </div>
             </center>
