@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Nav2 from './Nav2'; // Assuming Nav2 is the navigation component used
+
+import Navad from './Navad';
 
 const Adminp = () => {
   const [adminData, setAdminData] = useState({
@@ -18,7 +19,7 @@ const Adminp = () => {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Nav2 />
+      <Navad />
 
       {/* Welcome Message */}
       <div

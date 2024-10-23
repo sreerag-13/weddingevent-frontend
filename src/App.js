@@ -24,6 +24,14 @@ import Carda from './components/Carda';
 import Booka from './components/Booka';
 import Statusa from './components/Statusa';
 import Billingu from './components/Billingu';
+import Caterisinup from './components/Caterisinup';
+import Adbook from './components/Adbook';
+import Caterp from './components/Caterp';
+import Cpricing from './components/Cpricing';
+import Createc from './components/Createc';
+import Cviewpost from './components/Cviewpost';
+import Cardc from './components/Cardc';
+import Bookc from './components/Bookc';
 
 function App() {
   return (
@@ -50,9 +58,16 @@ function App() {
     <Route path="/Statusu" element={<Statusu/>} />
     <Route path="/Apricing" element={<Apricing/>} />
     <Route path="/auditorium-posts" element={<Booka/>} />
-   
+    <Route path="/catering-posts" element={<Bookc/>} />
+    <Route path="/Caterisinup" element={<Caterisinup/>} />
     <Route path="/Statusa" element={<Statusa/>} />
     <Route path="/Billingu" element={<Billingu/>} />
+    <Route path="/Adbook" element={<Adbook/>} />
+    <Route path="/Caterp" element={<Caterp/>} />
+    <Route path="/Cpricing" element={<Cpricing/>} />
+    <Route path="/Createc" element={<Createc/>} />
+    <Route path="/Cviewpost" element={<Cviewpost/>} />
+    <Route path="/Cardc" element={<Cardc/>} />
     </Routes>
      
      </BrowserRouter>
