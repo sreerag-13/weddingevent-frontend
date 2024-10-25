@@ -29,6 +29,7 @@ const Nav1 = () => {
             <li><a class="dropdown-item" href="/Audisignup">Auditorium</a></li>
             <li><a class="dropdown-item" href="/Usersignup">User</a></li>
             <li><a class="dropdown-item" href="/Caterisinup">Catering</a></li>
+            <li><a class="dropdown-item" href="/Decsignup">Decoration</a></li>
           </ul>
         </li>
       </ul>

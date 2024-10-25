@@ -1,0 +1,59 @@
+/* Nav2.css */
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #e91e63; /* Pink background */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.nav-link {
+  color: #fff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-icon {
+  margin-right: 10px;
+}
+
+.nav-item {
+  margin-bottom: 20px;
+}
+
+.dropdown-menu {
+  background-color: #e91e63; /* Same pink color for dropdown */
+  border: none;
+}
+
+.dropdown-item {
+  color: #fff;
+}
+
+.dropdown-item:hover {
+  background-color: #d81b60; /* Slightly darker on hover */
+}
+
+.search-box {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+}
+
+.form-control {
+  background-color: #f8f9fa;
+}
+
+.btn-outline-primary {
+  color: #fff;
+  border-color: #fff;
+}

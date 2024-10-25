@@ -1,0 +1,21 @@
+.navbar {
+    background-color: pink; /* Set navbar background to pink */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.navbar:hover {
+    background-color: #f8f9fa; /* Change color on hover */
+}
+
+.nav-link {
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #007bff; /* Change link color on hover */
+}
+
+.nav-icon {
+    margin-right: 5px; /* Space between icon and text */
+    vertical-align: middle; /* Align icon vertically with text */
+}

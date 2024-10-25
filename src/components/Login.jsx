@@ -33,8 +33,11 @@ const Login = () => {
             case 'auditorium':
                 endpoint = 'http://localhost:8082/auditorium/signin';
                 break;
-            case 'catering': // Add catering case
+            case 'catering':
                 endpoint = 'http://localhost:8082/catering/signin';
+                break;
+            case 'decoration': // New case for decorator login
+                endpoint = 'http://localhost:8082/decorationsignin';
                 break;
             default:
                 return;
@@ -44,7 +47,11 @@ const Login = () => {
         axios.post(endpoint, data)
             .then((response) => {
                 if (response.data.status === 'success') {
-                    const { token, auditoriumId, aName, aimage, userId, adminId, Email, UName, Phone, Pimage, PName, cateringId, CName, Cimage } = response.data;
+                    const {
+                        token, auditoriumId, aName, aimage, userId, adminId,
+                        Email, UName, Phone, Pimage, PName, cateringId, CName, Cimage,
+                        decoratorId, dName, dimage, uaddress, state, City // Ensure decorator details are included
+                    } = response.data;
 
                     // Store session data based on login type
                     sessionStorage.setItem('token', token);
@@ -54,25 +61,33 @@ const Login = () => {
                         sessionStorage.setItem('userId', userId);
                         sessionStorage.setItem('UName', UName);
                         sessionStorage.setItem('Phone', Phone);
-                        navigate('/Userp'); // Redirect to User page
+                        sessionStorage.setItem('uaddress', uaddress); 
+                        sessionStorage.setItem('state', state); 
+                        sessionStorage.setItem('City', City); 
+                        navigate('/Userp'); 
                     } else if (loginType === 'photographer') {
                         sessionStorage.setItem('userId', userId);
                         sessionStorage.setItem('Pimage', Pimage);
                         sessionStorage.setItem('PName', PName);
-                        navigate('/Photop'); // Redirect to Photographer page
+                        navigate('/Photop'); 
                     } else if (loginType === 'admin') {
                         sessionStorage.setItem('adminId', adminId);
-                        navigate('/Adminp'); // Redirect to Admin Dashboard
+                        navigate('/Adminp'); 
                     } else if (loginType === 'auditorium') {
                         sessionStorage.setItem('userId', auditoriumId);
                         sessionStorage.setItem('aName', aName);
                         sessionStorage.setItem('aimage', aimage);
-                        navigate('/Auditp'); // Redirect to Auditorium page
-                    } else if (loginType === 'catering') { // Handle catering login
+                        navigate('/Auditp'); 
+                    } else if (loginType === 'catering') {
                         sessionStorage.setItem('userId', cateringId);
                         sessionStorage.setItem('CName', CName);
                         sessionStorage.setItem('Cimage', Cimage);
-                        navigate('/Caterp'); // Redirect to Catering page
+                        navigate('/Caterp'); 
+                    } else if (loginType === 'decoration') { // Handle decoration login
+                        sessionStorage.setItem('userId', decoratorId);
+                        sessionStorage.setItem('dName', dName);
+                        sessionStorage.setItem('dimage', dimage);
+                        navigate('/Decp'); // Redirect to Decoration page
                     }
                 } else {
                     alert(response.data.message); // Show error message
@@ -116,9 +131,15 @@ const Login = () => {
                     </button>
                     <button
                         className={`btn ${loginType === 'catering' ? 'btn-primary' : 'btn-light'}`}
-                        onClick={() => setLoginType('catering')} // Add this button for catering login
+                        onClick={() => setLoginType('catering')}
                     >
                         Catering Login
+                    </button>
+                    <button
+                        className={`btn ${loginType === 'decoration' ? 'btn-primary' : 'btn-light'}`} // Add button for decoration login
+                        onClick={() => setLoginType('decoration')}
+                    >
+                        Decoration Login
                     </button>
                 </div>
             </center>

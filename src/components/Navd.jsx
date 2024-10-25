@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navcat = () => {
+const Navd = () => {
   return (
     <div>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -12,10 +12,10 @@ const Navcat = () => {
 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
   <div class="navbar-nav">
     <a class="nav-link active" aria-current="page" href="#">Home</a>
-    <a class="nav-link" href="/Cviewpost">MyPost</a>
-    <a class="nav-link" href="/Createc">Create post</a>
-    <a class="nav-link" href="/Cpricing">add pricing</a>
-    <a class="nav-link" href="Statusc">Booking</a>
+    <a class="nav-link" href="/Viewpostd">MyPost</a>
+    <a class="nav-link" href="/Createdec">Create post</a>
+    <a class="nav-link" href="/Pricingd">add pricing</a>
+    <a class="nav-link" href="/">Booking</a>
     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
   </div>
   <button class="btn btn-outline-danger ms-auto" type="button">Logout</button>
@@ -27,4 +27,4 @@ const Navcat = () => {
   )
 }
 
-export default Navcat
+export default Navd

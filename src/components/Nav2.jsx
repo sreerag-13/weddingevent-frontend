@@ -1,61 +1,59 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Use Link for navigation
+import './Nav2.css'; // Import custom styles
+import { FaCamera, FaCalendarAlt, FaUtensils } from 'react-icons/fa'; // Import icons from react-icons
 
 const Nav2 = () => {
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#">Navbar</a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+    <div className="sidebar bg-pink shadow-sm">
+      <div className="sidebar-header">
+        <h2 className="text-center text-white">WedCode</h2> {/* Changed to WedCode */}
+      </div>
+
+      <ul className="nav flex-column mt-4">
+        <li className="nav-item mb-3">
+          <Link className="nav-link text-white" to="/Userp">
+            Userprofile
+          </Link>
+        </li>
+        <li className="nav-item mb-3">
+          <Link className="nav-link text-white" to="/Statusu">
+            <FaCalendarAlt className="nav-icon me-2" /> Booking
+          </Link>
+        </li>
+        <li className="nav-item mb-3">
+          <Link className="nav-link text-white" to="/Billingu">
+            <FaUtensils className="nav-icon me-2" /> Billing
+          </Link>
+        </li>
+        <li className="nav-item dropdown mb-3">
+          <a
+            className="nav-link dropdown-toggle text-white"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
             aria-expanded="false"
-            aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/Statusu">booking</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/Billingu">Billing</a>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="/Cardsp">photographer</a></li>
-                  <li><a className="dropdown-item" href="/Carda">Auditorium</a></li>
-                  <li><a className="dropdown-item" href="/Cardc">Catering</a></li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><a className="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-              </li>
-            </ul>
-        
-          </div>
-        </div>
-      </nav>
+            Services
+          </a>
+          <ul className="dropdown-menu bg-pink">
+            <li>
+              <Link className="dropdown-item" to="/Cardsp">
+                <FaCamera className="nav-icon me-2" /> Photographer
+              </Link>
+            </li>
+            <li><Link className="dropdown-item" to="/Carda">Auditorium</Link></li>
+            <li><Link className="dropdown-item" to="/Cardc">Catering</Link></li>
+            <li><hr className="dropdown-divider" /></li>
+            <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+          </ul>
+        </li>
+        <li className="nav-item mb-3">
+          <a className="nav-link text-white disabled" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+
+      {/* Search form */}
     </div>
   );
 };

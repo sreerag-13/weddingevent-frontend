@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import NavP from './NavP'; // Import the NavP component
+import './Viewpostp.css'; // Import custom styles for this component
 
 const Viewpostp = () => {
   const [posts, setPosts] = useState([]); // State to store posts
@@ -29,28 +31,32 @@ const Viewpostp = () => {
 
   return (
     <div>
-      <h2>My Posts</h2>
-      {message && <p>{message}</p>} {/* Display a message if any */}
-      
-      {posts.length > 0 ? (
-        <div>
-          {posts.map((post, index) => (
-            <div key={index}>
-              <h3>Post {index + 1}</h3>
-              {post.postImage.map((image, i) => (
-                <img 
-                  key={i} 
-                  src={`http://localhost:8082/uploads/${image}`} 
-                  alt={`Post ${index} Image ${i}`} 
-                  width="200" 
-                />
-              ))}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No posts to display</p> // Show this if no posts are available
-      )}
+      <NavP /> {/* Add the NavP component */}
+      <div className="container mt-4">
+        <h2>My Posts</h2>
+        {message && <p>{message}</p>} {/* Display a message if any */}
+        
+        {posts.length > 0 ? (
+          <div className="grid-container">
+            {posts.map((post, index) => (
+              <div key={index} className="grid-item">
+                <h3>Post {index + 1}</h3>
+                <div className="image-container">
+                  {post.postImage.map((image, i) => (
+                    <img 
+                      key={i} 
+                      src={`http://localhost:8082/uploads/${image}`} 
+                      alt={`Post ${index} Image ${i}`} 
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No posts to display</p> // Show this if no posts are available
+        )}
+      </div>
     </div>
   );
 };

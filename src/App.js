@@ -32,6 +32,12 @@ import Createc from './components/Createc';
 import Cviewpost from './components/Cviewpost';
 import Cardc from './components/Cardc';
 import Bookc from './components/Bookc';
+import Statusc from './components/Statusc';
+import Decsignup from './components/Decsignup';
+import Decp from './components/Decp';
+import Pricingd from './components/Pricingd';
+import Createdec from './components/Createdec';
+import Viewpostd from './components/Viewpostd';
 
 function App() {
   return (
@@ -68,6 +74,12 @@ function App() {
     <Route path="/Createc" element={<Createc/>} />
     <Route path="/Cviewpost" element={<Cviewpost/>} />
     <Route path="/Cardc" element={<Cardc/>} />
+    <Route path="/Statusc" element={<Statusc/>} />
+    <Route path="/Decsignup" element={<Decsignup/>} />
+    <Route path="/Decp" element={<Decp/>} />
+    <Route path="/pricingd" element={<Pricingd/>} />
+    <Route path="/Createdec" element={<Createdec/>} />
+    <Route path="/Viewpostd" element={<Viewpostd/>} />
     </Routes>
      
      </BrowserRouter>
