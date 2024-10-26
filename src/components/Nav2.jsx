@@ -44,8 +44,7 @@ const Nav2 = () => {
             </li>
             <li><Link className="dropdown-item" to="/Carda">Auditorium</Link></li>
             <li><Link className="dropdown-item" to="/Cardc">Catering</Link></li>
-            <li><hr className="dropdown-divider" /></li>
-            <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+            <li><Link className="dropdown-item" to="/Cardd">Decoration</Link></li>
           </ul>
         </li>
         <li className="nav-item mb-3">

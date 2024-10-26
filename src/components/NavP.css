@@ -1,21 +1,40 @@
-.navbar {
-    background-color: pink; /* Set navbar background to pink */
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-.navbar:hover {
-    background-color: #f8f9fa; /* Change color on hover */
-}
-
-.nav-link {
-    transition: color 0.3s;
-}
-
-.nav-link:hover {
-    color: #007bff; /* Change link color on hover */
-}
-
-.nav-icon {
-    margin-right: 5px; /* Space between icon and text */
-    vertical-align: middle; /* Align icon vertically with text */
-}
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #e91e63; /* Pink background */
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .sidebar-header {
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .nav-link {
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-icon {
+    margin-right: 10px;
+  }
+  
+  .nav-item {
+    margin-bottom: 20px;
+  }
+  
+  .text-center .btn {
+    width: 100%; /* Full width for the logout button */
+  }
+  
+  .btn-outline-danger {
+    color: #fff;
+    border-color: #fff;
+  }
+  

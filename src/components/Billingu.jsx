@@ -75,6 +75,7 @@ const Billingu = () => {
                   <p>Auditorium Cost: ₹{costs.auditorium || 0}</p>
                   <p>Photographer Cost: ₹{costs.photographer || 0}</p>
                   <p>Catering Cost: ₹{costs.catering || 0}</p>
+                  <p>Decoration Cost: ₹{costs.decoration || 0}</p> {/* Add decoration cost */}
                   <p>Total Cost: ₹{costs.totalCost || 0}</p>
                   <button className="print-button" onClick={() => handlePrint(index)}> {/* Print button */}
                     <FaPrint className="me-2" /> Print

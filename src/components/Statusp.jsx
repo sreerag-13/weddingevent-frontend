@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import NavP from './NavP'; // Import the NavP component
 
 const Statusp = () => {
   const [bookings, setBookings] = useState([]);
@@ -53,38 +54,104 @@ const Statusp = () => {
     }
   };
 
+  const styles = {
+    container: {
+      maxWidth: '1200px', /* Set a max width for the container */
+      margin: '0 auto', /* Center the container */
+      padding: '20px', /* Add padding around the container */
+      marginLeft: '40%', /* Move the entire page to the right by 40% */
+      transform: 'translateX(-40%)', /* Adjust to keep content centered in its area */
+    },
+    errorMessage: {
+      color: 'red', /* Style for error messages */
+      fontWeight: 'bold',
+    },
+    bookingsTable: {
+      width: '100%',
+      borderCollapse: 'collapse', /* Remove space between table borders */
+      marginTop: '20px', /* Space above the table */
+      boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)', /* Add shadow to the table */
+    },
+    tableHeader: {
+      backgroundColor: '#007BFF', /* Blue background for header */
+      color: '#fff', /* White text color */
+      fontWeight: 'bold', /* Bold text for header */
+    },
+    tableCell: {
+      border: '1px solid #ddd', /* Table border */
+      padding: '12px', /* Padding inside cells */
+      textAlign: 'left', /* Align text to the left */
+    },
+    zebraStripe: {
+      backgroundColor: '#f9f9f9', /* Zebra striping for even rows */
+    },
+    tableRowHover: {
+      backgroundColor: '#f1f1f1', /* Light grey background on hover */
+    },
+    confirmButton: {
+      backgroundColor: '#28a745', /* Green background */
+      color: 'white', /* White text */
+      border: 'none', /* No border */
+      padding: '8px 12px', /* Padding for button */
+      borderRadius: '5px', /* Rounded corners */
+      cursor: 'pointer', /* Pointer cursor on hover */
+      transition: 'background-color 0.3s, transform 0.2s', /* Transition for hover effect */
+      fontWeight: 'bold', /* Bold text for button */
+      fontSize: '14px', /* Font size */
+    },
+    confirmButtonHover: {
+      backgroundColor: '#218838', /* Darker green on hover */
+      transform: 'scale(1.05)', /* Slightly enlarge on hover */
+    },
+    confirmButtonActive: {
+      transform: 'scale(0.95)', /* Slightly shrink on click */
+    },
+  };
+
   return (
     <div>
-      <h2>Bookings</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <table border="1" cellPadding="10" cellSpacing="0" style={{ width: '100%' }}>
-        <thead>
-          <tr>
-            <th>User Name</th>
-            <th>User Email</th>
-            <th>Total Cost</th>
-            <th>Booking Dates</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings.map((booking) => (
-            <tr key={booking._id}>
-              <td>{booking.userName}</td>
-              <td>{booking.userEmail}</td>
-              <td>₹{booking.totalCost}</td>
-              <td>{booking.bookingDates.join(', ')}</td>
-              <td>{booking.status}</td>
-              <td>
-                {booking.status === 'pending' && (
-                  <button onClick={() => handleConfirm(booking._id)}>Confirm</button>
-                )}
-              </td>
+      <NavP /> {/* Add the NavP component */}
+      <div style={styles.container}>
+        <h2>Bookings</h2>
+        {error && <p style={styles.errorMessage}>{error}</p>}
+        <table style={styles.bookingsTable}>
+          <thead>
+            <tr>
+              <th style={{ ...styles.tableCell, ...styles.tableHeader }}>User Name</th>
+              <th style={{ ...styles.tableCell, ...styles.tableHeader }}>User Email</th>
+              <th style={{ ...styles.tableCell, ...styles.tableHeader }}>Total Cost</th>
+              <th style={{ ...styles.tableCell, ...styles.tableHeader }}>Booking Dates</th>
+              <th style={{ ...styles.tableCell, ...styles.tableHeader }}>Status</th>
+              <th style={{ ...styles.tableCell, ...styles.tableHeader }}>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {bookings.map((booking, index) => (
+              <tr key={booking._id} style={index % 2 === 0 ? styles.zebraStripe : {}}>
+                <td style={styles.tableCell}>{booking.userName}</td>
+                <td style={styles.tableCell}>{booking.userEmail}</td>
+                <td style={styles.tableCell}>₹{booking.totalCost}</td>
+                <td style={styles.tableCell}>{booking.bookingDates.join(', ')}</td>
+                <td style={styles.tableCell}>{booking.status}</td>
+                <td style={styles.tableCell}>
+                  {booking.status === 'pending' && (
+                    <button
+                      style={styles.confirmButton}
+                      onMouseOver={(e) => (e.currentTarget.style.backgroundColor = styles.confirmButtonHover.backgroundColor)}
+                      onMouseOut={(e) => (e.currentTarget.style.backgroundColor = styles.confirmButton.backgroundColor)}
+                      onMouseDown={(e) => (e.currentTarget.style.transform = styles.confirmButtonActive.transform)}
+                      onMouseUp={(e) => (e.currentTarget.style.transform = '')}
+                      onClick={() => handleConfirm(booking._id)}
+                    >
+                      Confirm
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

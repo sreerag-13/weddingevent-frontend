@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import NavP from './NavP'; // Import your NavP component
+import Navd from './Navd';
 
 const Pricingd = () => {
   const [formData, setFormData] = useState({
-    decorationType: 'Interior Decoration', // Default value
+    decorationType: 'Interior Decoration',
     Duration: '',
     Description: '',
-    DecPrice: '' // Added DecPrice to form state
+    DecPrice: ''
   });
-  const [message, setMessage] = useState(''); 
-  const [pricingList, setPricingList] = useState([]); 
-  const [editingId, setEditingId] = useState(null); 
-  const [loading, setLoading] = useState(true); 
+  const [message, setMessage] = useState('');
+  const [pricingList, setPricingList] = useState([]);
+  const [editingId, setEditingId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch pricing data on component mount
   const fetchPricingData = async () => {
+    const userId = sessionStorage.getItem('userId');
     try {
-      const response = await axios.get('http://localhost:8082/get-decoration-pricing');
+      const response = await axios.get('http://localhost:8082/get-decoration-pricing', { params: { userId } });
       setPricingList(response.data);
     } catch (error) {
       console.error('Error fetching decoration pricing data:', error);
@@ -47,14 +47,8 @@ const Pricingd = () => {
 
     try {
       const response = editingId
-        ? await axios.put(
-            `http://localhost:8082/update-decoration-pricing/${editingId}`,
-            { ...formData, userId }
-          )
-        : await axios.post(
-            'http://localhost:8082/create-decoration-pricing',
-            { ...formData, userId }
-          );
+        ? await axios.put(`http://localhost:8082/update-decoration-pricing/${editingId}`, { ...formData, userId })
+        : await axios.post('http://localhost:8082/create-decoration-pricing', { ...formData, userId });
 
       setMessage(`Decoration pricing ${editingId ? 'updated' : 'created'} successfully!`);
 
@@ -67,7 +61,7 @@ const Pricingd = () => {
       }
 
       setEditingId(null);
-      setFormData({ decorationType: 'Interior Decoration', Duration: '', Description: '', DecPrice: '' }); // Reset form
+      setFormData({ decorationType: 'Interior Decoration', Duration: '', Description: '', DecPrice: '' });
     } catch (error) {
       console.error('Error creating/updating decoration pricing:', error);
       setMessage('Error creating/updating decoration pricing.');
@@ -92,7 +86,7 @@ const Pricingd = () => {
 
   return (
     <div>
-      <NavP />
+      <Navd />
       <div className="container">
         <h2>Decoration Pricing Package Registration</h2>
         <form onSubmit={handleSubmit}>
@@ -145,7 +139,7 @@ const Pricingd = () => {
                 <th>Type of Decoration</th>
                 <th>Duration</th>
                 <th>Description</th>
-                <th>Price</th> {/* Add a column for Price */}
+                <th>Price</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -155,14 +149,10 @@ const Pricingd = () => {
                   <td>{pricing.decorationType}</td>
                   <td>{pricing.Duration}</td>
                   <td>{pricing.Description}</td>
-                  <td>{pricing.DecPrice}</td> {/* Display price */}
+                  <td>{pricing.DecPrice}</td>
                   <td>
-                    <button onClick={() => handleEdit(pricing)} className="btn btn-warning btn-sm me-2">
-                      Edit
-                    </button>
-                    <button onClick={() => handleDelete(pricing._id)} className="btn btn-danger btn-sm">
-                      Delete
-                    </button>
+                    <button className="btn btn-warning btn-sm" onClick={() => handleEdit(pricing)}>Edit</button>
+                    <button className="btn btn-danger btn-sm" onClick={() => handleDelete(pricing._id)}>Delete</button>
                   </td>
                 </tr>
               ))}

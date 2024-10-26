@@ -38,6 +38,9 @@ import Decp from './components/Decp';
 import Pricingd from './components/Pricingd';
 import Createdec from './components/Createdec';
 import Viewpostd from './components/Viewpostd';
+import Cardd from './components/Cardd';
+import Bookd from './components/Bookd';
+import Statusd from './components/Statusd';
 
 function App() {
   return (
@@ -79,7 +82,10 @@ function App() {
     <Route path="/Decp" element={<Decp/>} />
     <Route path="/pricingd" element={<Pricingd/>} />
     <Route path="/Createdec" element={<Createdec/>} />
-    <Route path="/Viewpostd" element={<Viewpostd/>} />
+    <Route path="/Viewpostd" element={<Viewpostd/>} /> 
+    <Route path="/Cardd" element={<Cardd/>} />
+    <Route path="/decoration-posts" element={<Bookd/>} />
+    <Route path="/Statusd" element={<Statusd/>} />
     </Routes>
      
      </BrowserRouter>

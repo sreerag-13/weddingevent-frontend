@@ -16,17 +16,15 @@ const Ppricing = () => {
 
   // Fetch pricing data on component mount
   const fetchPricingData = async () => {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      setMessage('Unauthorized. Please log in.');
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) {
+      setMessage('User ID is required. Please log in.');
       setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.get('http://localhost:8082/get-pricing', {
-        headers: { token },
-      });
+      const response = await axios.get(`http://localhost:8082/get-pricing?userId=${userId}`);
       console.log('Pricing data fetched:', response.data); // Log the data to see its structure
       setPricingList(response.data); // Set the pricing list from the API response
     } catch (error) {
@@ -48,11 +46,10 @@ const Ppricing = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = sessionStorage.getItem('token');
     const userId = sessionStorage.getItem('userId');
 
-    if (!token || !userId) {
-      setMessage('Unauthorized. Please log in.');
+    if (!userId) {
+      setMessage('User ID is required. Please log in.');
       return;
     }
 
@@ -60,13 +57,11 @@ const Ppricing = () => {
       const response = editingId
         ? await axios.put(
             `http://localhost:8082/update-pricing/${editingId}`,
-            { ...formData, userId },
-            { headers: { token } }
+            { ...formData, userId } // Include userId in the request body
           )
         : await axios.post(
             'http://localhost:8082/create-pricing',
-            { ...formData, userId },
-            { headers: { token } }
+            { ...formData, userId } // Include userId in the request body
           );
 
       setMessage(`Pricing ${editingId ? 'updated' : 'created'} successfully!`);
@@ -93,11 +88,8 @@ const Ppricing = () => {
   };
 
   const handleDelete = async (id) => {
-    const token = sessionStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:8082/delete-pricing/${id}`, {
-        headers: { token },
-      });
+      await axios.delete(`http://localhost:8082/delete-pricing/${id}`);
       setMessage('Pricing deleted successfully!');
       fetchPricingData(); // Refresh the list after deletion
     } catch (error) {

@@ -16,8 +16,18 @@ const Apricing = () => {
 
   // Fetch pricing data on component mount
   const fetchPricingData = async () => {
+    const auditoriumId = sessionStorage.getItem('userId'); // Get auditoriumId from sessionStorage
+
+    if (!auditoriumId) {
+      setMessage('Unauthorized. Please log in as an auditorium.');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await axios.get('http://localhost:8082/get-auditorium-pricing'); // Update to your endpoint for auditorium pricing
+      const response = await axios.get('http://localhost:8082/get-auditorium-pricing', {
+        params: { auditoriumId }, // Pass auditoriumId as a query parameter
+      });
       setPricingList(response.data);
     } catch (error) {
       console.error('Error fetching auditorium pricing data:', error);
@@ -38,9 +48,9 @@ const Apricing = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userId = sessionStorage.getItem('userId');
+    const auditoriumId = sessionStorage.getItem('userId');
 
-    if (!userId) {
+    if (!auditoriumId) {
       setMessage('Unauthorized. Please log in.');
       return;
     }
@@ -49,11 +59,11 @@ const Apricing = () => {
       const response = editingId
         ? await axios.put(
             `http://localhost:8082/update-auditorium-pricing/${editingId}`,
-            { ...formData, userId },
+            { ...formData, userId: auditoriumId },
           )
         : await axios.post(
             'http://localhost:8082/create-auditorium-pricing',
-            { ...formData, userId },
+            { ...formData, userId: auditoriumId },
           );
 
       setMessage(`Auditorium pricing ${editingId ? 'updated' : 'created'} successfully!`);

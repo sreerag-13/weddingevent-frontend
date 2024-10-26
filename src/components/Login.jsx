@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './Login.css';
+import { FaUserCircle, FaLock } from 'react-icons/fa'; // Importing icons
 
 const Login = () => {
-    const [loginType, setLoginType] = useState('user'); // Default login type: user
+    const [loginType, setLoginType] = useState('user');
     const [data, setData] = useState({
         Email: '',
         Password: '',
     });
     const navigate = useNavigate();
 
-    // Handle input changes
     const inputHandler = (event) => {
         setData({ ...data, [event.target.name]: event.target.value });
     };
 
-    // Login handler based on the selected login type
     const readValue = () => {
         let endpoint;
-
-        // Select the appropriate API endpoint
         switch (loginType) {
             case 'user':
                 endpoint = 'http://localhost:8082/usersignin';
@@ -36,26 +34,24 @@ const Login = () => {
             case 'catering':
                 endpoint = 'http://localhost:8082/catering/signin';
                 break;
-            case 'decoration': // New case for decorator login
+            case 'decoration':
                 endpoint = 'http://localhost:8082/decorationsignin';
                 break;
             default:
                 return;
         }
 
-        // Send login request
         axios.post(endpoint, data)
             .then((response) => {
                 if (response.data.status === 'success') {
                     const {
                         token, auditoriumId, aName, aimage, userId, adminId,
-                        Email, UName, Phone, Pimage, PName, cateringId, CName, Cimage,
-                        decoratorId, dName, dimage, uaddress, state, City // Ensure decorator details are included
+                        Email, UName, Phone, Pimage, PName, Paddress, experience, Description,cateringId, CName, Cimage,
+                        decoratorId, dName, dimage, uaddress, state, City 
                     } = response.data;
 
-                    // Store session data based on login type
                     sessionStorage.setItem('token', token);
-                    sessionStorage.setItem('Email', Email); // Store Email for all users
+                    sessionStorage.setItem('Email', Email);
 
                     if (loginType === 'user') {
                         sessionStorage.setItem('userId', userId);
@@ -69,6 +65,12 @@ const Login = () => {
                         sessionStorage.setItem('userId', userId);
                         sessionStorage.setItem('Pimage', Pimage);
                         sessionStorage.setItem('PName', PName);
+                        sessionStorage.setItem('experience',experience);
+                        sessionStorage.setItem('Paddress',Paddress);
+                        sessionStorage.setItem('Description',Description);
+                        sessionStorage.setItem('state', state); 
+                        sessionStorage.setItem('City', City);
+                        sessionStorage.setItem('Phone', Phone); 
                         navigate('/Photop'); 
                     } else if (loginType === 'admin') {
                         sessionStorage.setItem('adminId', adminId);
@@ -83,90 +85,99 @@ const Login = () => {
                         sessionStorage.setItem('CName', CName);
                         sessionStorage.setItem('Cimage', Cimage);
                         navigate('/Caterp'); 
-                    } else if (loginType === 'decoration') { // Handle decoration login
+                    } else if (loginType === 'decoration') { 
                         sessionStorage.setItem('userId', decoratorId);
                         sessionStorage.setItem('dName', dName);
                         sessionStorage.setItem('dimage', dimage);
-                        navigate('/Decp'); // Redirect to Decoration page
+                        navigate('/Decp'); 
                     }
+                } else if (response.data.status === 'error' && response.data.message) {
+                    alert(response.data.message);
                 } else {
-                    alert(response.data.message); // Show error message
+                    alert('An error occurred. Please check your login type and try again.');
                 }
             })
             .catch((error) => {
                 console.error('Login error:', error);
-                alert('An error occurred. Please try again.');
+                if (error.response) {
+                    if (error.response.status === 401) {
+                        const errorMessage = error.response.data.message;
+                        if (errorMessage === 'Incorrect email') {
+                            alert('Email is incorrect. Please try again.');
+                        } else if (errorMessage === 'Incorrect password') {
+                            alert('Password is incorrect. Please try again.');
+                        } else {
+                            alert('Incorrect login type or credentials. Please select the correct login type.');
+                        }
+                    } else {
+                        alert('An error occurred. Please try again.');
+                    }
+                } else {
+                    alert('An error occurred. Please try again.');
+                }
             });
     };
 
     return (
-        <div>
-            <center>
-                <h2>Login</h2>
-                <div>
-                    {/* Toggle buttons for login type */}
-                    <button
-                        className={`btn ${loginType === 'user' ? 'btn-primary' : 'btn-light'}`}
-                        onClick={() => setLoginType('user')}
-                    >
-                        User Login
-                    </button>
-                    <button
-                        className={`btn ${loginType === 'photographer' ? 'btn-primary' : 'btn-light'}`}
-                        onClick={() => setLoginType('photographer')}
-                    >
-                        Photographer Login
-                    </button>
-                    <button
-                        className={`btn ${loginType === 'admin' ? 'btn-primary' : 'btn-light'}`}
-                        onClick={() => setLoginType('admin')}
-                    >
-                        Admin Login
-                    </button>
-                    <button
-                        className={`btn ${loginType === 'auditorium' ? 'btn-primary' : 'btn-light'}`}
-                        onClick={() => setLoginType('auditorium')}
-                    >
-                        Auditorium Login
-                    </button>
-                    <button
-                        className={`btn ${loginType === 'catering' ? 'btn-primary' : 'btn-light'}`}
-                        onClick={() => setLoginType('catering')}
-                    >
-                        Catering Login
-                    </button>
-                    <button
-                        className={`btn ${loginType === 'decoration' ? 'btn-primary' : 'btn-light'}`} // Add button for decoration login
-                        onClick={() => setLoginType('decoration')}
-                    >
-                        Decoration Login
-                    </button>
-                </div>
-            </center>
-
+        <div className="login-container">
+            <header className="login-header">
+                <h1>WedCode</h1>
+                <p>Your booking companion</p>
+            </header>
             <div className="container">
                 <form>
-                    <label>Email</label>
-                    <input
-                        type="text"
-                        name="Email"
-                        value={data.Email}
-                        onChange={inputHandler}
-                        className="form-control"
-                    />
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        name="Password"
-                        value={data.Password}
-                        onChange={inputHandler}
-                        className="form-control"
-                    />
+                    <div className="form-group">
+                        <label htmlFor="loginType">Select Login Type</label>
+                        <select
+                            id="loginType"
+                            className="form-control"
+                            value={loginType}
+                            onChange={(e) => setLoginType(e.target.value)}
+                        >
+                            <option value="user">User</option>
+                            <option value="photographer">Photographer</option>
+                            <option value="admin">Admin</option>
+                            <option value="auditorium">Auditorium</option>
+                            <option value="catering">Catering</option>
+                            <option value="decoration">Decoration</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Email</label>
+                        <div className="input-icon">
+                            <FaUserCircle />
+                            <input
+                                type="text"
+                                name="Email"
+                                value={data.Email}
+                                onChange={inputHandler}
+                                className="form-control"
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label>Password</label>
+                        <div className="input-icon">
+                            <FaLock />
+                            <input
+                                type="password"
+                                name="Password"
+                                value={data.Password}
+                                onChange={inputHandler}
+                                className="form-control"
+                            />
+                        </div>
+                    </div>
+
                     <button type="button" className="btn btn-success" onClick={readValue}>
                         Login
                     </button>
                 </form>
             </div>
+            <footer className="login-footer">
+                <p>© 2024 WedCode. All rights reserved.</p>
+            </footer>
         </div>
     );
 };

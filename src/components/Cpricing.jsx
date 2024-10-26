@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import NavP from './NavP'; // Import your NavP component
 import Navcat from './Navcat';
 
 const Cpricing = () => {
   const [formData, setFormData] = useState({
-    foodType: 'Vegetarian', // Default value set to Vegetarian
+    foodType: 'Vegetarian',
     foodItems: '',
     foodPrice: '',
-    Quantity: '',
-    Package: ''
+    Quantity: '', // Keep it as a string initially for input handling
+    Package: 'Premium' // Default value for Package
   });
-  const [message, setMessage] = useState(''); // Success/error messages
-  const [pricingList, setPricingList] = useState([]); // Hold all pricing data
-  const [editingId, setEditingId] = useState(null); // Track the ID for editing
-  const [loading, setLoading] = useState(true); // Track loading state
+  const [message, setMessage] = useState('');
+  const [pricingList, setPricingList] = useState([]);
+  const [editingId, setEditingId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch pricing data on component mount
   const fetchPricingData = async () => {
+    const userId = sessionStorage.getItem('userId'); // Get userId from session storage
+    if (!userId) {
+      setMessage('Unauthorized. Please log in.');
+      return;
+    }
+    
     try {
-      const response = await axios.get('http://localhost:8082/get-catering-pricing'); // Update to your endpoint for catering pricing
+      const response = await axios.get(`http://localhost:8082/get-catering-pricing?userId=${userId}`); // Pass userId as a query parameter
       setPricingList(response.data);
     } catch (error) {
       console.error('Error fetching catering pricing data:', error);
@@ -35,7 +39,9 @@ const Cpricing = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    // Convert Quantity to a number
+    const newValue = name === 'Quantity' ? Number(value) : value;
+    setFormData({ ...formData, [name]: newValue });
   };
 
   const handleSubmit = async (e) => {
@@ -69,7 +75,7 @@ const Cpricing = () => {
       }
 
       setEditingId(null);
-      setFormData({ foodType: 'Vegetarian', foodItems: '', foodPrice: '', Quantity: '', Package: '' }); // Reset form to defaults
+      setFormData({ foodType: 'Vegetarian', foodItems: '', foodPrice: '', Quantity: '', Package: 'Premium' }); // Reset form
     } catch (error) {
       console.error('Error creating/updating catering pricing:', error);
       setMessage('Error creating/updating catering pricing.');
@@ -151,88 +157,104 @@ const Cpricing = () => {
                 Quantity
               </label>
               <input
-                type="text"
+                type="String"
                 className="form-control"
                 name="Quantity"
-                placeholder="Enter food quantity (e.g., per person)"
+                placeholder="Enter quantity"
                 value={formData.Quantity}
                 onChange={handleChange}
+                min="1 per person"
                 required
               />
             </div>
 
             <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
               <label htmlFor="Package" className="form-label">
-                Package Type
+                Package
               </label>
-              <input
-                type="text"
-                className="form-control"
+              <select
+                className="form-select"
                 name="Package"
-                placeholder="Enter package type (e.g., Silver)"
                 value={formData.Package}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="Premium">Premium</option>
+                <option value="Gold">Gold</option>
+                <option value="Silver">Silver</option>
+              </select>
             </div>
 
-            <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-              <button type="submit" className="btn btn-success w-100">
-                {editingId ? 'Update Package' : 'Register Package'}
+            <div className="col-12">
+              <button type="submit" className="btn btn-primary">
+                {editingId ? 'Update Pricing' : 'Create Pricing'}
               </button>
-            </div>
-
-            <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-              <a href="/" className="btn btn-secondary w-100">
-                Home
-              </a>
+              {editingId && (
+                <button
+                  type="button"
+                  className="btn btn-secondary ms-2"
+                  onClick={() => {
+                    setEditingId(null);
+                    setFormData({ foodType: 'Vegetarian', foodItems: '', foodPrice: '', Quantity: '', Package: 'Premium' });
+                  }}
+                >
+                  Cancel
+                </button>
+              )}
             </div>
           </div>
         </form>
-
         {message && <div className="alert alert-info mt-3">{message}</div>}
 
-        <h3 className="mt-5">Existing Catering Pricing Packages</h3>
         {loading ? (
-          <p>Loading catering pricing data...</p>
+          <div>Loading...</div>
         ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Type of Food</th>
-                <th>Food Items</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Package</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pricingList.map((pricing) => (
-                <tr key={pricing._id}>
-                  <td>{pricing.foodType}</td>
-                  <td>{pricing.foodItems}</td>
-                  <td>{pricing.foodPrice}</td>
-                  <td>{pricing.Quantity}</td>
-                  <td>{pricing.Package}</td>
-                  <td>
-                    <button
-                      onClick={() => handleEdit(pricing)}
-                      className="btn btn-warning btn-sm me-2"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(pricing._id)}
-                      className="btn btn-danger btn-sm"
-                    >
-                      Delete
-                    </button>
-                  </td>
+          <div className="mt-4">
+            <h3>Catering Pricing List</h3>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Food Type</th>
+                  <th>Food Items</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Package</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {pricingList.length > 0 ? (
+                  pricingList.map((pricing) => (
+                    <tr key={pricing._id}>
+                      <td>{pricing.foodType}</td>
+                      <td>{pricing.foodItems}</td>
+                      <td>{pricing.foodPrice}</td>
+                      <td>{pricing.Quantity}</td>
+                      <td>{pricing.Package}</td>
+                      <td>
+                        <button
+                          className="btn btn-warning btn-sm me-2"
+                          onClick={() => handleEdit(pricing)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDelete(pricing._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6">No pricing available.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

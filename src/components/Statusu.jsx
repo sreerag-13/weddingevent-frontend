@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // For API requests
-import './Statusu.css'; // Optional: For custom styling
+import axios from 'axios';
+import Nav2 from './Nav2'; // Assuming you have a Nav2 component for the navbar
 
 const Statusu = () => {
   const [bookings, setBookings] = useState([]);
@@ -8,7 +8,6 @@ const Statusu = () => {
   const [error, setError] = useState(null);
   const userId = sessionStorage.getItem('userId'); // Assuming you store userId in sessionStorage
 
-  // Fetch bookings from the backend
   useEffect(() => {
     const fetchBookings = async () => {
       if (!userId) {
@@ -18,22 +17,20 @@ const Statusu = () => {
       }
 
       try {
-        console.log('User ID:', userId); // Log the userId for debugging
+        console.log('User ID:', userId);
         const response = await axios.post('http://localhost:8082/api/user/bookings', { userId });
         
-        // Log the full response
-        console.log('Response:', response.data); 
+        console.log('Response:', response.data);
 
-        // Check if the bookings exist in the response
         if (response.data && response.data.bookings) {
-          console.log('Bookings:', response.data.bookings); // Log bookings
+          console.log('Bookings:', response.data.bookings);
           setBookings(response.data.bookings);
         } else {
           throw new Error('No bookings found in the response.');
         }
       } catch (err) {
         console.error('Error fetching bookings:', err);
-        setError('Failed to load bookings. Please try again.'); // Set error message
+        setError('Failed to load bookings. Please try again.');
       } finally {
         setLoading(false);
       }
@@ -42,49 +39,49 @@ const Statusu = () => {
     fetchBookings();
   }, [userId]);
 
-  // Render loading state
   if (loading) return <p>Loading bookings...</p>;
-
-  // Render error state
-  if (error) return <p style={{ color: 'red' }}>{error}</p>; // Print error in red color
+  if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
-    <div className="statusu-container">
-      <h2>Your Bookings</h2>
-      <table className="statusu-table">
-        <thead>
-          <tr>
-            <th>Booking ID</th>
-            <th>Entity Name</th> {/* Updated for combined name */}
-            <th>Entity Email</th> {/* Updated for combined email */}
-            <th>Total Cost</th>
-            <th>Booking Dates</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings.length > 0 ? (
-            bookings.map((booking) => (
-              <tr key={booking._id}>
-                <td>{booking._id}</td>
-                <td>{booking.entityName || 'N/A'}</td> {/* Display entity name */}
-                <td>{booking.entityEmail || 'N/A'}</td> {/* Display entity email */}
-                <td>₹{booking.totalCost}</td>
-                <td>
-                  {booking.bookingDates.map((date, index) => (
-                    <span key={index}>{new Date(date).toLocaleDateString()}</span>
-                  ))}
-                </td>
-                <td>{booking.status || 'Pending'}</td>
-              </tr>
-            ))
-          ) : (
+    <div>
+      <Nav2 /> {/* Add the Nav2 component for navigation */}
+      <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', marginLeft: '18%' }}>
+        <h2 style={{ textAlign: 'center' }}>Your Bookings</h2>
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+          <thead>
             <tr>
-              <td colSpan="6">No bookings found.</td>
+              <th style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f2f2f2', color: '#333' }}>Booking ID</th>
+              <th style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f2f2f2', color: '#333' }}>Entity Name</th>
+              <th style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f2f2f2', color: '#333' }}>Entity Email</th>
+              <th style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f2f2f2', color: '#333' }}>Total Cost</th>
+              <th style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f2f2f2', color: '#333' }}>Booking Dates</th>
+              <th style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f2f2f2', color: '#333' }}>Status</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {bookings.length > 0 ? (
+              bookings.map((booking) => (
+                <tr key={booking._id} style={{ backgroundColor: booking._id % 2 === 0 ? '#f9f9f9' : '#fff' }}>
+                  <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>{booking._id}</td>
+                  <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>{booking.entityName || 'N/A'}</td>
+                  <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>{booking.entityEmail || 'N/A'}</td>
+                  <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>₹{booking.totalCost}</td>
+                  <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
+                    {booking.bookingDates.map((date, index) => (
+                      <span key={index}>{new Date(date).toLocaleDateString()}</span>
+                    ))}
+                  </td>
+                  <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>{booking.status || 'Pending'}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" style={{ textAlign: 'center', padding: '20px' }}>No bookings found.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

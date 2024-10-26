@@ -15,7 +15,7 @@ const Navd = () => {
     <a class="nav-link" href="/Viewpostd">MyPost</a>
     <a class="nav-link" href="/Createdec">Create post</a>
     <a class="nav-link" href="/Pricingd">add pricing</a>
-    <a class="nav-link" href="/">Booking</a>
+    <a class="nav-link" href="/Statusd">Booking</a>
     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
   </div>
   <button class="btn btn-outline-danger ms-auto" type="button">Logout</button>
