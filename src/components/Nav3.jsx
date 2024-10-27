@@ -1,30 +1,58 @@
-import React from 'react'
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaHome, FaCamera, FaPlus, FaMoneyBillAlt, FaCalendarAlt } from 'react-icons/fa';
+import './Nav3.css'; // Ensure the CSS file is imported
 
 const Nav3 = () => {
+  const navigate = useNavigate();
+
+  // Function to handle logout
+  const handleLogout = () => {
+    sessionStorage.clear(); // Clear all session storage items
+    navigate('/'); // Redirect to home page
+  };
+
   return (
-    <div>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-<div class="container-fluid">
-<a class="navbar-brand" href="#">Navbar</a>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-  <div class="navbar-nav">
-    <a class="nav-link active" aria-current="page" href="#">Home</a>
-    <a class="nav-link" href="/Aviewp">MyPost</a>
-    <a class="nav-link" href="/Createa">Create post</a>
-    <a class="nav-link" href="/Apricing">add pricing</a>
-    <a class="nav-link" href="/Statusa">Booking</a>
-    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-  </div>
-  <button class="btn btn-outline-danger ms-auto" type="button">Logout</button>
-</div>
-</div>
-</nav>
+    <div className="nav3-sidebar bg-pink shadow-sm"> {/* Updated class name */}
+      <div className="nav3-sidebar-header">
+        <h2 className="text-center text-white">WedCode</h2>
+      </div>
 
-</div>
-  )
-}
+      <ul className="nav nav3-flex-column mt-4">
+        <li className="nav3-item mb-3">
+          <Link className="nav3-link text-white" to="/Auditp">
+            <FaHome className="nav3-icon me-2" /> UserProfile
+          </Link>
+        </li>
+        <li className="nav3-item mb-3">
+          <Link className="nav3-link text-white" to="/Aviewp">
+            <FaCamera className="nav3-icon me-2" /> MyPost
+          </Link>
+        </li>
+        <li className="nav3-item mb-3">
+          <Link className="nav3-link text-white" to="/Createa">
+            <FaPlus className="nav3-icon me-2" /> Create Post
+          </Link>
+        </li>
+        <li className="nav3-item mb-3">
+          <Link className="nav3-link text-white" to="/Apricing">
+            <FaMoneyBillAlt className="nav3-icon me-2" /> Add Pricing
+          </Link>
+        </li>
+        <li className="nav3-item mb-3">
+          <Link className="nav3-link text-white" to="/Statusa">
+            <FaCalendarAlt className="nav3-icon me-2" /> Booking
+          </Link>
+        </li>
+      </ul>
 
-export default Nav3
+      <div className="text-center mt-auto">
+        <button className="btn btn-outline-danger nav3-logout-btn" type="button" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Nav3;

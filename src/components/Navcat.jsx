@@ -1,30 +1,61 @@
-import React from 'react'
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import './Navcat.css'; // Import custom styles
+import { FaHome, FaPlus, FaList, FaCalendarAlt, FaDoorOpen } from 'react-icons/fa'; // Import icons from react-icons
 
 const Navcat = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleLogout = () => {
+    // Clear session storage
+    sessionStorage.clear(); // Clear all session storage items
+    navigate('/'); // Navigate to the home page
+  };
+
   return (
-    <div>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-<div class="container-fluid">
-<a class="navbar-brand" href="#">Navbar</a>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-  <div class="navbar-nav">
-    <a class="nav-link active" aria-current="page" href="#">Home</a>
-    <a class="nav-link" href="/Cviewpost">MyPost</a>
-    <a class="nav-link" href="/Createc">Create post</a>
-    <a class="nav-link" href="/Cpricing">add pricing</a>
-    <a class="nav-link" href="Statusc">Booking</a>
-    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-  </div>
-  <button class="btn btn-outline-danger ms-auto" type="button">Logout</button>
-</div>
-</div>
-</nav>
+    <div className="sidebar bg-pink shadow-sm">
+      <div className="sidebar-header">
+        <h2 className="text-center text-white">WedCode</h2>
+      </div>
 
-</div>
-  )
-}
+      <ul className="nav flex-column mt-4">
+        <li className="nav-item mb-3">
+          <Link className="nav-link text-white" to="/Caterp">
+            <FaHome className="nav-icon me-2" />User Profile
+          </Link>
+        </li>
+        <li className="nav-item mb-3">
+          <Link className="nav-link text-white" to="/Cviewpost">
+            <FaList className="nav-icon me-2" /> My Post
+          </Link>
+        </li>
+        <li className="nav-item mb-3">
+          <Link className="nav-link text-white" to="/Createc">
+            <FaPlus className="nav-icon me-2" /> Create Post
+          </Link>
+        </li>
+        <li className="nav-item mb-3">
+          <Link className="nav-link text-white" to="/Cpricing">
+            <FaCalendarAlt className="nav-icon me-2" /> Add Pricing
+          </Link>
+        </li>
+        <li className="nav-item mb-3">
+          <Link className="nav-link text-white" to="/Statusc">
+            <FaDoorOpen className="nav-icon me-2" /> Booking
+          </Link>
+        </li>
+        <li className="nav-item mb-3">
+          <a className="nav-link text-white disabled" aria-disabled="true">
+            Disabled
+          </a>
+        </li>
+      </ul>
 
-export default Navcat
+      <button className="btn btn-outline-danger mt-auto" type="button" onClick={handleLogout}>
+        Logout
+      </button>
+    </div>
+  );
+};
+
+export default Navcat;

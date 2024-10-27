@@ -45,8 +45,8 @@ const Login = () => {
             .then((response) => {
                 if (response.data.status === 'success') {
                     const {
-                        token, auditoriumId, aName, aimage, userId, adminId,
-                        Email, UName, Phone, Pimage, PName, Paddress, experience, Description,cateringId, CName, Cimage,
+                        token, auditoriumId, aName, aimage, userId, adminId,aaddress,
+                        Email, UName, Phone, Pimage, PName, Paddress, experience, Description,cateringId, CName,Caddress,Cimage, 
                         decoratorId, dName, dimage, uaddress, state, City 
                     } = response.data;
 
@@ -79,11 +79,23 @@ const Login = () => {
                         sessionStorage.setItem('userId', auditoriumId);
                         sessionStorage.setItem('aName', aName);
                         sessionStorage.setItem('aimage', aimage);
+                        sessionStorage.setItem('aaddress',aaddress);
+                        sessionStorage.setItem('Description',Description);
+                        sessionStorage.setItem('state', state); 
+                        sessionStorage.setItem('City', City);
+                        sessionStorage.setItem('Phone', Phone); 
+                        sessionStorage.setItem('experience',experience);
                         navigate('/Auditp'); 
                     } else if (loginType === 'catering') {
                         sessionStorage.setItem('userId', cateringId);
                         sessionStorage.setItem('CName', CName);
                         sessionStorage.setItem('Cimage', Cimage);
+                        sessionStorage.setItem('Caddress',Caddress);
+                        sessionStorage.setItem('Description',Description);
+                        sessionStorage.setItem('state', state); 
+                        sessionStorage.setItem('City', City);
+                        sessionStorage.setItem('Phone', Phone); 
+                        sessionStorage.setItem('experience',experience);
                         navigate('/Caterp'); 
                     } else if (loginType === 'decoration') { 
                         sessionStorage.setItem('userId', decoratorId);

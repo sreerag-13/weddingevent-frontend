@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Nav3 from './Nav3'; // Import the Nav3 component
+import './Aviewp.css'; // Import a separate CSS file for styles
 
 const Aviewp = () => {
   const [auditoriumPosts, setAuditoriumPosts] = useState([]); // State to store auditorium posts
@@ -28,28 +30,33 @@ const Aviewp = () => {
 
   return (
     <div>
-      <h2>My Auditorium Posts</h2>
-      {message && <p>{message}</p>} {/* Display a message if any */}
+      <Nav3 /> {/* Include the Nav3 navigation component */}
       
-      {auditoriumPosts.length > 0 ? (
-        <div>
-          {auditoriumPosts.map((post, index) => (
-            <div key={index}>
-              <h3>Auditorium Post {index + 1}</h3>
-              {post.postImage.map((image, i) => (
-                <img 
-                  key={i} 
-                  src={`http://localhost:8082/uploads/${image}`} 
-                  alt={`Auditorium Post ${index} Image ${i}`} 
-                  width="200" 
-                />
-              ))}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No auditorium posts to display</p> // Show this if no posts are available
-      )}
+      <div className="container">
+        <h2>My Auditorium Posts</h2>
+        {message && <p>{message}</p>} {/* Display a message if any */}
+        
+        {auditoriumPosts.length > 0 ? (
+          <div className="grid-container">
+            {auditoriumPosts.map((post, index) => (
+              <div className="grid-item" key={index}>
+                <h3>Auditorium Post {index + 1}</h3>
+                <div className="image-container">
+                  {post.postImage.map((image, i) => (
+                    <img 
+                      key={i} 
+                      src={`http://localhost:8082/uploads/${image}`} 
+                      alt={`Auditorium Post ${index} Image ${i}`} 
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No auditorium posts to display</p> // Show this if no posts are available
+        )}
+      </div>
     </div>
   );
 };

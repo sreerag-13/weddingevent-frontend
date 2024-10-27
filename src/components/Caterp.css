@@ -1,0 +1,26 @@
+.caterp-container {
+    display: flex;
+  }
+  
+  .caterp-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .card {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 15px;
+    background-color: #fff;
+  }
+  
+  .profile-image {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  

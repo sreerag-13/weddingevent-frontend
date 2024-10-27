@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import NavP from './NavP'; // Import your NavP component
+import Nav3 from './Nav3';
 
 const Apricing = () => {
   const [formData, setFormData] = useState({
@@ -102,7 +103,7 @@ const Apricing = () => {
 
   return (
     <div>
-      <NavP /> {/* Include the navigation component */}
+      <Nav3 /> {/* Include the navigation component */}
       <div className="container">
         <h2>Auditorium Pricing Package Registration</h2>
         <form onSubmit={handleSubmit}>

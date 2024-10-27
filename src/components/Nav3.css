@@ -1,0 +1,45 @@
+.nav3-sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #e91e63; /* Pink background */
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.nav3-sidebar-header {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.nav3-item {
+    margin-bottom: 20px; /* Space between items */
+}
+
+.nav3-link {
+    color: #fff; /* White text */
+    font-size: 18px; /* Font size */
+    display: block; /* Change to block to ensure full width */
+    padding: 10px; /* Padding for better click area */
+    text-decoration: none; /* Remove underline */
+}
+
+.nav3-link:hover {
+    text-decoration: none; /* Ensure no underline on hover */
+}
+
+.nav3-icon {
+    margin-right: 10px; /* Space between icon and text */
+}
+
+.text-center .nav3-logout-btn {
+    width: 100%; /* Full width for the logout button */
+}
+
+.btn-outline-danger {
+    color: #fff; /* White text for the button */
+    border-color: #fff; /* White border for the button */
+    margin-top: 20px; /* Space above the logout button */
+}
